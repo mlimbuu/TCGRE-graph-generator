@@ -18,7 +18,7 @@ class GridStyle_Graph_Generator:
         self.GS_G = None # Grid Style Graph
 
     # 2D grid graph
-    def create_moderate_grid_graph(self):
+    def create_grid_graph(self):
         # Create a 2D grid graph
         G = nx.grid_2d_graph(self.rows, self.cols)
         # Convert node labels from (x,y) to a continuous range of integers

@@ -17,7 +17,7 @@ class TCGRE_GridStyle_Graph_Generator:
 
     def create_gridstyle_graph(self):
         grid_graph = GridStyle_Graph_Generator(self.N, self.rows, self.cols)
-        grid_graph.create_moderate_grid_graph()
+        grid_graph.create_grid_graph()
         grid_graph_incremented = grid_graph.increment_node_labels()
         self.TCGRE_G = grid_graph_incremented
         print("Grid Style Graph created...")
