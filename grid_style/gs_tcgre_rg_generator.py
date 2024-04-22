@@ -116,6 +116,21 @@ class TCGRE_GridStyle_Graph_Generator:
             nodes[node1][node2] = self.TCGRE_G[node1][node2]['cost']  # For node1 -> node2
             nodes[node2][node1] =  self.TCGRE_G[node1][node2]['cost'] # For node2 -> node1
         return nodes
+    
+    # plot the graph
+    def plot_graph(self):
+        plt.figure(figsize=(8, 5))
+        # Using nx.spring_layout for positioning nodes, with the incremented graph
+        pos = nx.spring_layout(self.TCGRE_G, seed=42)
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_color='lightgreen', edge_color='gray')
+        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
+        # change color to red for the risk edges
+        nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
+        plt.title(f"TCGRE Grid Graph: {self.rows}x{self.cols}")
+        # Save the plot
+        plt.savefig(f'./TCGRE_graph_generator/grid_style/plots/tcgre_grid_N{self.N}.png')
+        # Show the plot
+        plt.show()
 
 '''
 # Example grid graphs
@@ -126,7 +141,7 @@ class TCGRE_GridStyle_Graph_Generator:
 # Grid: 6x5, 30 nodes, node labels: 1 - 30
 '''
 # Parameters
-N = 10 # Number of nodes
+N = 20 # Number of nodes
 cols = 5 # Number of columns
 rows, cols = N//cols, cols # Number of rows
 risk_edge_ration = 0.2 # 20% of the edges are risk edges
@@ -136,5 +151,6 @@ tcgre_graph = TCGRE_GridStyle_Graph_Generator(N, rows, cols, risk_edge_ration)
 tcgre_graph.create_gridstyle_graph()
 tcgre_graph.pick_risk_edges_and_support_nodes()
 tcgre_graph.add_cost_to_edges()
-graph_info = tcgre_graph.convert_to_compatible_graph()
-print("graph info",graph_info)
+tcgre_graph.plot_graph()
+# graph_info = tcgre_graph.convert_to_compatible_graph()
+# print("graph info",graph_info)
