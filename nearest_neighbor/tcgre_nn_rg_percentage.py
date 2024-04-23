@@ -164,7 +164,7 @@ class TCGRE_NN_Percentage_Graph_Generator:
 
 
 # Number of nodes
-n = 20  
+n = 25  
 # Area dimensions
 width, height = n+1, n+1  
 # Percentage of nearest neighbors to connect
