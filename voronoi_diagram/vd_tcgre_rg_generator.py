@@ -113,10 +113,10 @@ class TCGRE_VD_Graph_Generator:
          # Draw the graph
         plt.figure()
         pos = nx.spring_layout(self.TCGRE_G)
-        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', font_size=20, font_color='w', edge_color='gray')
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', font_color='w', edge_color='gray')
         # Draw the edge labels
         edge_labels = nx.get_edge_attributes(self.TCGRE_G, 'cost')
-        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black', font_size=15)
+        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black')
         # color red for risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='r', width=1.0)
     

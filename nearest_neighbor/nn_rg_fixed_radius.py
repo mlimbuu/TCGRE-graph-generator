@@ -122,7 +122,7 @@ class NearestNeighbor_FixedRadius_Graph_Generator:
     def plot_graph(self):
         # Draw the graph
         plt.figure()
-        nx.draw(self.G, pos=self.positions, node_size=200, with_labels=True, node_color='skyblue', edge_color='black',font_size=12, font_color='gray')
+        nx.draw(self.G, pos=self.positions, node_size=200, with_labels=True, node_color='skyblue', edge_color='black', font_color='gray')
 
         # Configure and show grid
         plt.grid(True, which='both', color='gray', linewidth=0.8, linestyle='--')  # Ensuring the grid is visible

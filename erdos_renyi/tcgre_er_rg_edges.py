@@ -122,7 +122,7 @@ class TCGRE_ErdosRenyi_GNM_Graph_Generator:
         nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', font_color='w', edge_color='gray')
         # Draw the edge labels
         edge_labels = nx.get_edge_attributes(self.TCGRE_G, 'cost')
-        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black', font_size=15)
+        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black')
         # color red for risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='r', width=1.0)
     
@@ -144,6 +144,6 @@ tcgre_er_g = TCGRE_ErdosRenyi_GNM_Graph_Generator(n, M, risk_edge_ratio)
 tcgre_er_g.create_tcgre_gnm_random_graph()
 tcgre_er_g.pick_risk_edges_and_support_nodes()
 tcgre_er_g.add_cost_to_edges()
-tcgre_er_g.plot_graph() # plot the graph
+# tcgre_er_g.plot_graph() # plot the graph
 graph_info_tcgre_er_g = tcgre_er_g.convert_to_compatible_graph()
 print(f"Graph Info: {graph_info_tcgre_er_g}")

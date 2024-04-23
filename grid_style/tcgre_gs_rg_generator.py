@@ -122,7 +122,7 @@ class TCGRE_GridStyle_Graph_Generator:
         plt.figure()
         # Using nx.spring_layout for positioning nodes, with the incremented graph
         pos = nx.spring_layout(self.TCGRE_G, seed=42)
-        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', edge_color='gray')
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', edge_color='gray', font_color='w')
         nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
         # change color to red for the risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
@@ -151,7 +151,7 @@ tcgre_gs = TCGRE_GridStyle_Graph_Generator(N, rows, cols, risk_edge_ratio)
 tcgre_gs.create_gridstyle_graph()
 tcgre_gs.pick_risk_edges_and_support_nodes()
 tcgre_gs.add_cost_to_edges()
-# tcgre_gs.plot_graph() # plot the graph
+tcgre_gs.plot_graph() # plot the graph
 graph_info_tcgre_gs = tcgre_gs.convert_to_compatible_graph()
 print(f"Graph Info: {graph_info_tcgre_gs}")
 

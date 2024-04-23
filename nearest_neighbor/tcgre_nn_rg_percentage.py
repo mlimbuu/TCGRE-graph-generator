@@ -122,7 +122,7 @@ class TCGRE_NN_Percentage_Graph_Generator:
     def plot_graph(self):
          # Draw the graph
         plt.figure()
-        nx.draw(self.TCGRE_G, pos=self.positions, node_size=500, with_labels=True, node_color='skyblue', edge_color='black',font_size=12, font_color='gray')
+        nx.draw(self.TCGRE_G, pos=self.positions, node_size=500, with_labels=True, node_color='skyblue', edge_color='black', font_color='w')
         nx.draw_networkx_edge_labels(self.TCGRE_G, pos=self.positions, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
         # change color to red for the risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos=self.positions, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
