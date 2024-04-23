@@ -6,9 +6,8 @@ import matplotlib.pyplot as plt
 from nn_rg_fixed_radius import NearestNeighbor_FixedRadius_Graph_Generator
 
 class TCGRE_NN_FixedRadius_Graph_Generator:
-    def __init__(self, N, P, width, height, fixed_radius, risk_edge_ratio):
+    def __init__(self, N, fixed_radius, width, height, risk_edge_ratio):
         self.N = N
-        self.P = P
         self.TCGRE_G = None
         self.positions = None
 
@@ -22,7 +21,7 @@ class TCGRE_NN_FixedRadius_Graph_Generator:
 
     def create_nn_fixed_radius_graph(self):
         # Create a graph with N nodes
-        G = NearestNeighbor_FixedRadius_Graph_Generator(self.N, self.P, self.width, self.height, self.fixed_radius)
+        G = NearestNeighbor_FixedRadius_Graph_Generator(self.N, self.width, self.height, self.fixed_radius)
         self.TCGRE_G, self.positions = G.create_nearest_neighbor_fixed_radius_graph()
         print("Nearest Neighbor Graph created...")
         return self.TCGRE_G
@@ -122,7 +121,7 @@ class TCGRE_NN_FixedRadius_Graph_Generator:
     def plot_graph(self):
          # Draw the graph
         plt.figure()
-        nx.draw(self.TCGRE_G, pos=self.positions, node_size=200, with_labels=True, node_color='skyblue', edge_color='black',font_size=12, font_color='gray')
+        nx.draw(self.TCGRE_G, pos=self.positions, node_size=500, with_labels=True, node_color='skyblue', edge_color='black',font_size=12, font_color='gray')
         nx.draw_networkx_edge_labels(self.TCGRE_G, pos=self.positions, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
         # change color to red for the risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos=self.positions, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
@@ -141,41 +140,25 @@ class TCGRE_NN_FixedRadius_Graph_Generator:
         plt.xticks(range(0, self.width))  # Set ticks for x-axis
         plt.yticks(range(0, self.height))  # Set ticks for y-axis
         # Save the plot
-        plt.savefig(f"./TCGRE_graph_generator/nearest_neighbor/plots/tcgre_nearest_neighbor_graph:N{self.N}_{int(self.fixed_radius)}FR.png")
+        plt.savefig(f"./nearest_neighbor/plots/tcgre_nearest_neighbor_graph:N{self.N}_{int(self.fixed_radius)}FR.png")
         plt.show()
 
 
 
-
-
-
-
-        # Using nx.spring_layout for positioning nodes, with the incremented graph
-        # pos = nx.spring_layout(self.TCGRE_G, seed=42)
-        # nx.draw(self.TCGRE_G, pos, with_labels=True, node_color='lightgreen', edge_color='gray')
-        # nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
-        # # change color to red for the risk edges
-        # nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
-        # plt.title(f"TCGRE Nearest Neighbor Graph with Fixed Radius")
-        # # Save the plot
-        # plt.savefig(f'./TCGRE_graph_generator/nearest_neighbor/plots/tcgre_nn_fixedradius_N{self.N}.png')
-        # # Show the plot
-        # plt.show()
-
-
 ## Number of nodes
-n = 20  
+N = 20  
 # Area dimensions
-width, height = n, n  
+width, height = N, N  
 # fixed radius for nearest neighbors
-fixed_radius = n/3
+fixed_radius = N/3
 risk_edge_ratio = 0.2   
 
-tcgre_nn_fixed_radius = TCGRE_NN_FixedRadius_Graph_Generator(n, n, width, height, fixed_radius, risk_edge_ratio)
+tcgre_nn_fixed_radius = TCGRE_NN_FixedRadius_Graph_Generator(N, fixed_radius, width, height, risk_edge_ratio)
 tcgre_nn_fixed_radius.create_nn_fixed_radius_graph()
 tcgre_nn_fixed_radius.pick_risk_edges_and_support_nodes()
 tcgre_nn_fixed_radius.add_cost_to_edges()
-tcgre_nn_fixed_radius.convert_to_compatible_graph()
-tcgre_nn_fixed_radius.plot_graph()
+# tcgre_nn_fixed_radius.plot_graph() # plot the graph
+graph_info_tcgre_nn_fixed_radius = tcgre_nn_fixed_radius.convert_to_compatible_graph()
+print(f"Graph Info: {graph_info_tcgre_nn_fixed_radius}")
 
 

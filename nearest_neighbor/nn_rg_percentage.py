@@ -135,30 +135,18 @@ class NearestNeighbor_Percentage_Graph_Generator:
         plt.axvline(x=0, color='k')
 
         # Setting axis labels and ticks
-        plt.title('Nearest Neighbor Graph on a Grid')
+        plt.title('Nearest Neighbor Percentage Graph')
         plt.axis('on')  # Ensure the axis is shown
         plt.xlabel('Width')
         plt.ylabel('Height')
-        plt.xticks(range(0, width+1))  # Set ticks for x-axis
-        plt.yticks(range(0, height+1))  # Set ticks for y-axis
+        plt.xticks(range(0, self.width))  # Set ticks for x-axis
+        plt.yticks(range(0, self.height))  # Set ticks for y-axis
         # Save the plot
-        plt.savefig(f'./TCGRE_graph_generator/nearest_neighbor/plots/nearest_neighbor_graph:{n}N_{percentage}P.png')
+        plt.savefig(f'./nearest_neighbor/plots/nearest_neighbor_graph:N{self.N}_{self.P}P.png')
         # Show the plot
         plt.show()
 
 
-
-
-# # Number of nodes
-# n = 20  
-# # Area dimensions
-# width, height = n+1, n+1  
-# # Percentage of nearest neighbors to connect
-# percentage = 30
-
-# nn_rg_percentage = NearestNeighbor_Percentage_Graph_Generator(n, percentage, width, height)
-# nn_rg_percentage.create_nearest_neighbor_percentage_graph()
-# nn_rg_percentage.plot_graph()
 
 
 

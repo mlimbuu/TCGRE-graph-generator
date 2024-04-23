@@ -119,16 +119,16 @@ class TCGRE_GridStyle_Graph_Generator:
     
     # plot the graph
     def plot_graph(self):
-        plt.figure(figsize=(8, 5))
+        plt.figure()
         # Using nx.spring_layout for positioning nodes, with the incremented graph
         pos = nx.spring_layout(self.TCGRE_G, seed=42)
-        nx.draw(self.TCGRE_G, pos, with_labels=True, node_color='lightgreen', edge_color='gray')
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', edge_color='gray')
         nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
         # change color to red for the risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
-        plt.title(f"TCGRE Grid Graph: {self.rows}x{self.cols}")
+        plt.title(f"TCGRE Grid Style Graph: {self.rows}x{self.cols}")
         # Save the plot
-        plt.savefig(f'./TCGRE_graph_generator/grid_style/plots/tcgre_grid_N{self.N}.png')
+        plt.savefig(f'./grid_style/plots/tcgre_grid_N{self.N}.png')
         # Show the plot
         plt.show()
 
@@ -143,14 +143,15 @@ class TCGRE_GridStyle_Graph_Generator:
 # Parameters
 N = 20 # Number of nodes
 cols = 5 # Number of columns
-rows, cols = N//cols, cols # Number of rows
-risk_edge_ration = 0.2 # 20% of the edges are risk edges
+rows, cols = N//cols, cols # Number of rows and columns
+risk_edge_ratio = 0.2 # 20% of the edges are risk edges
 
 # Create a TCGRE Grid Style Graph
-tcgre_graph = TCGRE_GridStyle_Graph_Generator(N, rows, cols, risk_edge_ration)
-tcgre_graph.create_gridstyle_graph()
-tcgre_graph.pick_risk_edges_and_support_nodes()
-tcgre_graph.add_cost_to_edges()
-tcgre_graph.plot_graph()
-# graph_info = tcgre_graph.convert_to_compatible_graph()
-# print("graph info",graph_info)
+tcgre_gs = TCGRE_GridStyle_Graph_Generator(N, rows, cols, risk_edge_ratio)
+tcgre_gs.create_gridstyle_graph()
+tcgre_gs.pick_risk_edges_and_support_nodes()
+tcgre_gs.add_cost_to_edges()
+# tcgre_gs.plot_graph() # plot the graph
+graph_info_tcgre_gs = tcgre_gs.convert_to_compatible_graph()
+print(f"Graph Info: {graph_info_tcgre_gs}")
+

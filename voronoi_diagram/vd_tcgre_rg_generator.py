@@ -113,7 +113,7 @@ class TCGRE_VD_Graph_Generator:
          # Draw the graph
         plt.figure()
         pos = nx.spring_layout(self.TCGRE_G)
-        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=700, node_color='skyblue', font_size=20, font_color='w', edge_color='gray')
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', font_size=20, font_color='w', edge_color='gray')
         # Draw the edge labels
         edge_labels = nx.get_edge_attributes(self.TCGRE_G, 'cost')
         nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black', font_size=15)
@@ -123,19 +123,21 @@ class TCGRE_VD_Graph_Generator:
         
         plt.title("TCGRE Random Connection Graph")
         # Save the plot
-        # plt.savefig(f"./TCGRE_graph_generator/voronoi_diagram/plots/tcgre_voronoi_graph_{self.N}N.png") 
+        plt.savefig(f"./voronoi_diagram/plots/tcgre_voronoi_graph_N{self.N}.png") 
         # Display the plot
         plt.show()
 
 # Example usage
-N = 10
+N = 10 # Number of points/nodes
 risk_edge_ratio = 0.2
 tcgre_vd_graph = TCGRE_VD_Graph_Generator(N, risk_edge_ratio)
 tcgre_vd_graph.create_voronoi_graph()
 tcgre_vd_graph.pick_risk_edges_and_support_nodes()
 tcgre_vd_graph.add_cost_to_edges()
-tcgre_vd_graph.convert_to_compatible_graph()
-tcgre_vd_graph.plot_graph()
+# tcgre_vd_graph.plot_graph() # plot the graph
+graph_info_tcgre_vd = tcgre_vd_graph.convert_to_compatible_graph()
+print(f"Graph Info: {graph_info_tcgre_vd}")
+
 
 
 

@@ -31,24 +31,7 @@ class ErdosRenyi_GNM_Graph_Generator:
         nx.draw(self.G, with_labels=True, node_color='lightgreen', node_size=700, edge_color='k')
         plt.title('Random Graph from G(n, M) Model')
         # Save the plot
-        plt.savefig(f'./TCGRE_graph_generator/erdos_renyi/plots/random_graph_gnm_G({self.n},{self.M}).png')
+        plt.savefig(f'./erdos_renyi/plots/random_graph_gnm_G({self.n},{self.M}).png')
         # Show the plot
         plt.show()
 
-
-
-# # Parameters
-# n = 10  # number of nodes
-# M = 30  # number of edges #15
-
-# # Create a random graph using the G(n, M) model
-# G = nx.gnm_random_graph(n, M)
-
-# # Draw the graph
-# plt.figure(figsize=(8, 6))
-# nx.draw(G, with_labels=True, node_color='lightgreen', node_size=700, edge_color='k')
-# plt.title('Random Graph from G(n, M) Model')
-# # Save the plot
-# plt.savefig(f'./TCGRE_graph_generator/erdos_renyi/plots/random_graph_gnm_G({n},{M}).png')
-# # Show the plot
-# plt.show()

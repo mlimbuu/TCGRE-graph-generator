@@ -110,24 +110,27 @@ class TCGRE_RC_Graph_Generator:
          # Draw the graph
         plt.figure()
         pos = nx.spring_layout(self.TCGRE_G)
-        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=700, node_color='skyblue', font_size=20, font_color='w', edge_color='gray')
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', font_color='w', edge_color='gray')
         # Draw the edge labels
         edge_labels = nx.get_edge_attributes(self.TCGRE_G, 'cost')
-        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black', font_size=15)
+        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black')
         # color red for risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='r', width=1.0)
         plt.title("TCGRE Random Connection Graph")
         # Save the plot
-        # plt.savefig(f"./TCGRE_graph_generator/random_connection/plots/tcgre_random_connection_graph_{self.N}N.png") 
+        plt.savefig(f"./random_connection/plots/tcgre_random_connection_graph_N{self.N}.png") 
         # Display the plot
         plt.show()
 
 # # Example usage
-num_vertices = 10
-tcgre_rc = TCGRE_RC_Graph_Generator(num_vertices, 0.2)
+N = 10 # Number of nodes
+risk_edge_ratio = 0.2
+tcgre_rc = TCGRE_RC_Graph_Generator(N, risk_edge_ratio)
 tcgre_rc.create_random_connection_graph()
 tcgre_rc.pick_risk_edges_and_support_nodes()
 tcgre_rc.add_cost_to_edges()
-tcgre_rc.convert_to_compatible_graph()
-tcgre_rc.plot_graph()
+# tcgre_rc.plot_graph() # plot the graph
+graph_info_tcgre_rc = tcgre_rc.convert_to_compatible_graph()
+print(f"Graph Info: {graph_info_tcgre_rc}")
+
 

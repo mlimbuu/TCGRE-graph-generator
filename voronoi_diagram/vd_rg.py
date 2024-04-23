@@ -36,12 +36,10 @@ class VoronoiDiagram_Graph_Generator:
         pos = {i: point for i, point in enumerate(points)}
         nx.draw(G, pos, node_color='skyblue', node_size=200, with_labels=True, edge_color='gray', font_size=10)
         # Save the plot
-        # plt.savefig(f'./random_graph_generator/voronoi_diagram/plots/voronoi_graph_N{self.N}.png')
+        # plt.savefig(f'./voronoi_diagram/plots/voronoi_graph_N{self.N}.png')
         # Show the plot
         # plt.show()
         return G, points
-
-
 
     def connect_isolated_nodes(self):
         isolates = list(nx.isolates(self.G))
@@ -59,9 +57,3 @@ class VoronoiDiagram_Graph_Generator:
             print("No isolated nodes found.")
         return self.G
 
-# Generate a random graph using the Voronoi diagram
-N = 10 # number of nodes as well as voronoi points
-vd = VoronoiDiagram_Graph_Generator(N)
-vd.create_voronoi_graph()
-
-##

@@ -1,6 +1,7 @@
 import networkx as nx
 import random
 import time
+import matplotlib.pyplot as plt
 from er_rg_edges import ErdosRenyi_GNM_Graph_Generator
 
 class TCGRE_ErdosRenyi_GNM_Graph_Generator:
@@ -82,16 +83,16 @@ class TCGRE_ErdosRenyi_GNM_Graph_Generator:
             risk_edges.append(chosen_edge)
 
         ## pick up neighbors of the risk edges as support nodes
-        self.risk_edges_with_support_nodes = self.pick_support_nodes(risk_edges)
-        return self.risk_edges_with_support_nodes
+        self.risk_edges = self.pick_support_nodes(risk_edges)
+        return self.risk_edges
 
     #  add cost to the edges including the risk edges
     def add_cost_to_edges(self):
         print("Adding cost to the edges...")
         for edge in self.TCGRE_G.edges():
-            if edge in self.risk_edges_with_support_nodes.keys():
-                print(f"risk_edge: {edge}, support_nodes: {self.risk_edges_with_support_nodes[edge][0]}")
-                self.TCGRE_G[edge[0]][edge[1]]['cost'] = [20, (self.risk_edges_with_support_nodes[edge][0],)]
+            if edge in self.risk_edges.keys():
+                print(f"risk_edge: {edge}, support_nodes: {self.risk_edges[edge][0]}")
+                self.TCGRE_G[edge[0]][edge[1]]['cost'] = [20, (self.risk_edges[edge][0],)]
             else:
                 print(f"normal_edge: {edge}")
                 # either fixed cost for normal edges, lesser than the risk edge cost
@@ -113,6 +114,25 @@ class TCGRE_ErdosRenyi_GNM_Graph_Generator:
             nodes[node2][node1] =  self.TCGRE_G[node1][node2]['cost'] # For node2 -> node1
         return nodes
     
+    # plot the graph
+    def plot_graph(self):
+         # Draw the graph
+        plt.figure()
+        pos = nx.spring_layout(self.TCGRE_G)
+        nx.draw(self.TCGRE_G, pos, with_labels=True, node_size=500, node_color='skyblue', font_color='w', edge_color='gray')
+        # Draw the edge labels
+        edge_labels = nx.get_edge_attributes(self.TCGRE_G, 'cost')
+        nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels=edge_labels, font_color='black', font_size=15)
+        # color red for risk edges
+        nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='r', width=1.0)
+    
+        
+        plt.title("TCGRE Erodos Renyi Graph using G(n, M) Model")
+        # Save the plot
+        plt.savefig(f"./erdos_renyi/plots/tcgre_erdos_renyi_gnm_graph_N{self.n}.png") 
+        # Display the plot
+        plt.show()
+    
 
 # # Parameters
 n = 10  # number of nodes
@@ -124,5 +144,6 @@ tcgre_er_g = TCGRE_ErdosRenyi_GNM_Graph_Generator(n, M, risk_edge_ratio)
 tcgre_er_g.create_tcgre_gnm_random_graph()
 tcgre_er_g.pick_risk_edges_and_support_nodes()
 tcgre_er_g.add_cost_to_edges()
+tcgre_er_g.plot_graph() # plot the graph
 graph_info_tcgre_er_g = tcgre_er_g.convert_to_compatible_graph()
 print(f"Graph Info: {graph_info_tcgre_er_g}")

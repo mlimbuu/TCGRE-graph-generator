@@ -122,7 +122,7 @@ class TCGRE_NN_Percentage_Graph_Generator:
     def plot_graph(self):
          # Draw the graph
         plt.figure()
-        nx.draw(self.TCGRE_G, pos=self.positions, node_size=200, with_labels=True, node_color='skyblue', edge_color='black',font_size=12, font_color='gray')
+        nx.draw(self.TCGRE_G, pos=self.positions, node_size=500, with_labels=True, node_color='skyblue', edge_color='black',font_size=12, font_color='gray')
         nx.draw_networkx_edge_labels(self.TCGRE_G, pos=self.positions, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
         # change color to red for the risk edges
         nx.draw_networkx_edges(self.TCGRE_G, pos=self.positions, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
@@ -141,41 +141,23 @@ class TCGRE_NN_Percentage_Graph_Generator:
         plt.xticks(range(0, self.width))  # Set ticks for x-axis
         plt.yticks(range(0, self.height))  # Set ticks for y-axis
         # Save the plot
-        plt.savefig(f"./TCGRE_graph_generator/nearest_neighbor/plots/tcgre_nearest_neighbor_percentage_graph:N{self.N}_{int(self.P)}P.png")
+        plt.savefig(f"./nearest_neighbor/plots/tcgre_nearest_neighbor_percentage_graph:N{self.N}_{int(self.P)}P.png")
         plt.show()
 
-
-
-
-
-
-
-        # Using nx.spring_layout for positioning nodes, with the incremented graph
-        # pos = nx.spring_layout(self.TCGRE_G, seed=42)
-        # nx.draw(self.TCGRE_G, pos, with_labels=True, node_color='lightgreen', edge_color='gray')
-        # nx.draw_networkx_edge_labels(self.TCGRE_G, pos, edge_labels={(u, v): d['cost'] for u, v, d in self.TCGRE_G.edges(data=True)})
-        # # change color to red for the risk edges
-        # nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='red', width=1.0)
-        # plt.title(f"TCGRE Nearest Neighbor Graph with Fixed Radius")
-        # # Save the plot
-        # plt.savefig(f'./TCGRE_graph_generator/nearest_neighbor/plots/tcgre_nn_fixedradius_N{self.N}.png')
-        # # Show the plot
-        # plt.show()
-
-
 # Number of nodes
-n = 25  
+N = 25  
 # Area dimensions
-width, height = n+1, n+1  
+width, height = N+1, N+1  
 # Percentage of nearest neighbors to connect
-percentage = 30
+percentage = 20
 risk_edge_ratio = 0.2   
 
-tcgre_nn_fixed_radius = TCGRE_NN_Percentage_Graph_Generator(n, percentage, width, height, risk_edge_ratio)
-tcgre_nn_fixed_radius.create_nn_percentage_graph()
-tcgre_nn_fixed_radius.pick_risk_edges_and_support_nodes()
-tcgre_nn_fixed_radius.add_cost_to_edges()
-tcgre_nn_fixed_radius.convert_to_compatible_graph()
-tcgre_nn_fixed_radius.plot_graph()
+tcgre_nn_percentage = TCGRE_NN_Percentage_Graph_Generator(N, percentage, width, height, risk_edge_ratio)
+tcgre_nn_percentage.create_nn_percentage_graph()
+tcgre_nn_percentage.pick_risk_edges_and_support_nodes()
+tcgre_nn_percentage.add_cost_to_edges()
+# tcgre_nn_percentage.plot_graph() # plot the graph
+graph_info_tcgre_nn_percentage = tcgre_nn_percentage.convert_to_compatible_graph()
+print(f"Graph Info: {graph_info_tcgre_nn_percentage}")
 
 

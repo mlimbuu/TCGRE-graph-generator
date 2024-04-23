@@ -39,9 +39,9 @@ class GridStyle_Graph_Generator:
         # Using nx.spring_layout for positioning nodes, with the incremented graph
         pos = nx.spring_layout(self.GS_G, seed=42)
         nx.draw(self.GS_G, pos, with_labels=True, node_color='lightgreen', edge_color='gray')
-        plt.title(f"Moderate Grid Graph: {self.rows}x{self.cols}")
+        plt.title(f"Grid Style Graph: {self.rows}x{self.cols}")
         # Save the plot
-        plt.savefig(f'./TCGRE_graph_generator/grid_style_based/plots/grid_style_N{self.N}.png')
+        plt.savefig(f'./grid_style/plots/grid_style_N{self.N}.png')
         # Show the plot
         plt.show()
 

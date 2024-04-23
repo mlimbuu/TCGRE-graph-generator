@@ -49,9 +49,8 @@ class NearestNeighbor_FixedRadius_Graph_Generator:
     3. Isolated nodes are connected to their nearest neighbour.
     4. Isolated graph sub-components are connected to the main component.
     '''
-    def __init__(self, N, P, width, height, fixed_radius):
+    def __init__(self, N, width, height, fixed_radius):
         self.N = N
-        self.P = P
         self.G = None # nearest neighbor fixed radius graph
         
         self.width = width
@@ -131,49 +130,13 @@ class NearestNeighbor_FixedRadius_Graph_Generator:
         plt.axvline(x=0, color='k')
 
         # Setting axis labels and ticks
-        plt.title('Simple Graph on a Grid')
+        plt.title('Nearest Neighbor Fixed Radius Graph')
         plt.axis('on')  # Ensure the axis is shown
         plt.xlabel('Width', fontsize=12)
         plt.ylabel('Height', fontsize=12)
         plt.xticks(range(0, self.width))  # Set ticks for x-axis
         plt.yticks(range(0, self.height))  # Set ticks for y-axis
         # Save the plot
-        plt.savefig(f"./TCGRE_graph_generator/nearest_neighbor/plots/nearest_neighbor_graph:N{self.N}_{self.fixed_radius}FR.png")
+        plt.savefig(f"./nearest_neighbor/plots/nearest_neighbor_graph:N{self.N}_{self.fixed_radius}FR.png")
         plt.show()
-
-
-
-
-
-
-
-# # Create an empty graph
-# G = nx.Graph()
-
-# Number of nodes
-# n = 25  
-# # Area dimensions
-# width, height = n, n  
-# # fixed radius for nearest neighbors
-# fixed_radius = n/4
-
-# nn_rg_fixed_radius = NearestNeighbor_FixedRadius_Graph_Generator(n, n, width, height, fixed_radius)
-# nn_rg_fixed_radius.create_nearest_neighbor_fixed_radius_graph()
-# nn_rg_fixed_radius.plot_graph()
-
-
-# print("Graph nodes: ", nn_rg_fixed_radius.G.nodes())
-# print("Graph edges: ", nn_rg_fixed_radius.G.edges())
-# # Generate random positions for the nodes
-# positions = random_position(width, height)
-
-# # Add edges based on distance, edges are for nearest neighbors within fixed radius
-# G  = add_edges_by_fixed_radius(G, positions, fixed_radius)
-
-# # Check and connect isolated nodes
-# G = check_and_connect_isolates(G, positions)
-
-# # Check and connect components
-# G = connect_components(G, positions)
-
 
