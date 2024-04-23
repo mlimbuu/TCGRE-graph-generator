@@ -118,7 +118,7 @@ class TCGRE_RC_Graph_Generator:
         nx.draw_networkx_edges(self.TCGRE_G, pos, edgelist=self.risk_edges.keys(), edge_color='r', width=1.0)
         plt.title("TCGRE Random Connection Graph")
         # Save the plot
-        # plt.savefig(f"./TCGRE_graph_generator/random_connection/plots/random_graph_{self.N}N.png") 
+        # plt.savefig(f"./TCGRE_graph_generator/random_connection/plots/tcgre_random_connection_graph_{self.N}N.png") 
         # Display the plot
         plt.show()
 

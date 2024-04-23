@@ -63,18 +63,13 @@ class RandomConnection_Graph_Generator:
         nx.draw(self.G, with_labels=True, edge_color='gray', node_color='skyblue', node_size=800, font_size=15, font_color='w')
         plt.title("Randomly Generated Graph with Random Connections")
         # Save the plot
-        plt.savefig(f"./random_graph_generator/random_connection/plots/random_graph_{self.V}N.png")
+        # plt.savefig(f"./TCGRE_graph_generator/random_connection/plots/random_connection_graph_N{self.V}.png")
         # Display the plot
         plt.show()
 
 # # Example usage
 # num_vertices = 10
-# graph = RandomConnection_Graph_Generator(num_vertices)
-# adj_matrix = graph.generate_adjacency_matrix()
-# # adjmatrix without loops
-# # adj_matrix_no_loops = graph.generate_adjacency_matrix_without_self_loops()
-# G = graph.create_graph_from_adjacency_matrix()
-# connected_G = graph.ensure_connected(G)
+# rc_graph = RandomConnection_Graph_Generator(num_vertices)
+# connected_G = rc_graph.create_graph_from_adjacency_matrix()
+# rc_graph.plot_graph()
 
-# # Plot the graph
-# graph.plot_graph(connected_G)
