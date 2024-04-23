@@ -7,7 +7,7 @@
 ![Alt text](grid_style/plots/tcgre_grid_N20.png)
 
 ## Nearest Neighbor TCGRE Graph
-![Alt text](nearest_neighbor/plots/tcgre_nearest_neighbor_graph:N20_7FR.png)
+![Alt text](nearest_neighbor/plots/tcgre_nearest_neighbor_percentage_graph:N25_20P.png)
 
 ## Random Connection TCGRE Graph
 ![Alt text](random_connection/plots/tcgre_random_connection_graph_10N.png)
